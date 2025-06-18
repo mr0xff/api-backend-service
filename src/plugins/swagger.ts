@@ -15,6 +15,10 @@ export default fastifyPlugin(function(fastify){
         {
           url: 'https://backend-service-tranning.onrender.com',
           description: 'Development server'
+        },
+         {
+          url: 'http://127.0.0.1:3000',
+          description: 'Local server'
         }
       ],
       tags: [
@@ -40,8 +44,5 @@ export default fastifyPlugin(function(fastify){
     },
     staticCSP: true,
     transformSpecificationClone: true,
-    theme: {
-      css: []
-    }
   });
 })

@@ -28,6 +28,7 @@
   "homepage": "https://github.com/mr0xff/restful-api-stock#readme",
   "dependencies": {
     "@fastify/autoload": "^6.0.0",
+    "@fastify/rate-limit": "^10.3.0",
     "@fastify/sensible": "^6.0.0",
     "@fastify/swagger": "^9.5.1",
     "@fastify/swagger-ui": "^5.2.3",

@@ -6,7 +6,7 @@ test('mock route', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
-    url: '/mock',
+    url: '/v1/mock',
     method: "POST",
     body: {
       qty: 2

@@ -18,10 +18,10 @@ export default fastifyPlugin(function(fastify){
         },
         {
           url: 'https://backend-service-tranning-production.up.railway.app',
-          description: 'Local server'
+          description: 'Development server on Railway'
         },
         {
-          url: 'http://127.0.0.1:3000',
+          url: 'http://localhost:3000',
           description: 'Local server'
         }
       ],

@@ -3,6 +3,8 @@ import fastifyRedis from "@fastify/redis";
 
 export default fastifyPlugin(function(fastify){
   fastify.register(fastifyRedis, {
-    url: process.env.REDIS_URL
+    url: process.env.REDIS_URL,
+    connectTimeout: 5000,
+    family:6
   });
 })

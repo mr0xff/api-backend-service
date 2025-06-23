@@ -19,7 +19,7 @@ export default async function employees(fastify: FastifyInstance){
     const a =  users ? JSON.parse(users) : await mongo.User.find();
     
     if(!users)
-      await redis.set(rediskeys.users, JSON.stringify(a));
+      await redis.set(rediskeys.users, JSON.stringify(a), "EX", 300);
 
     res.send({
       employees: a,

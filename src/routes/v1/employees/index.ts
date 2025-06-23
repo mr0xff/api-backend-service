@@ -8,10 +8,18 @@ interface PostRoute extends RouteGenericInterface {
 }
 
 export default async function employees(fastify: FastifyInstance){
-  const { mongo, schema } = fastify;
+  const { mongo, schema, redis } = fastify;
+  const rediskeys = {
+    users: "user:list"
+  }
 
   fastify.get("/", async function(req, res){
-    const a = await mongo.User.find();
+    const users = await redis.get(rediskeys.users);
+
+    const a =  users ? JSON.parse(users) : await mongo.User.find();
+    
+    if(!users)
+      await redis.set(rediskeys.users, JSON.stringify(a));
 
     res.send({
       employees: a,
@@ -24,6 +32,8 @@ export default async function employees(fastify: FastifyInstance){
     const { user, bio } = req.body;
     
     await mongo.User.create({ user, bio });
+
+    await redis.del(rediskeys.users);
 
     res.send({ msg: "created!" });
   });

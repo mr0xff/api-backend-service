@@ -1,9 +1,8 @@
 import fastifyPlugin from "fastify-plugin";
-// import fastifyRedis from "@fastify/redis";
+import fastifyRedis from "@fastify/redis";
 
 export default fastifyPlugin(function(fastify){
-  // fastify.register(fastifyRedis, {
-  //   host: process.env.REDIS_HOST,
-  //   port: Number(process.env.REDIS_PORT),
-  // });
+  fastify.register(fastifyRedis, {
+    url: process.env.REDIS_URL
+  });
 })

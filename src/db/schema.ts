@@ -1,6 +1,15 @@
-import { Schema } from "mongoose";
+import { Schema, type Document } from "mongoose";
 
-export const UserSchema = new Schema({
-  user: String,
+interface User extends Document {
+  user: string;
+  bio?: string;
+}
+
+export const UserSchema = new Schema<User>({
+  user: {
+    type: String,
+    required: true,
+    unique: true
+  },
   bio: String
 });

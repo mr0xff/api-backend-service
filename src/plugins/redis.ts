@@ -5,6 +5,6 @@ export default fastifyPlugin(function(fastify){
   fastify.register(fastifyRedis, {
     url: process.env.REDIS_URL,
     connectTimeout: 5000,
-    family:6
+    family: 6
   });
 })

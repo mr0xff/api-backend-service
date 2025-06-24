@@ -37,4 +37,12 @@ export default async function employees(fastify: FastifyInstance){
 
     res.send({ msg: "created!" });
   });
+
+  fastify.delete("/", async function(req, res){
+    await mongo.User.deleteMany();
+
+    await redis.del(rediskeys.users);
+    
+    res.send({ msg: "todos os registros detelados" });
+  });
 }

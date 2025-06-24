@@ -8,9 +8,9 @@ interface PostRoute extends RouteGenericInterface {
 }
 
 export default function products(fastify: FastifyInstance){
-  const { prisma, redis } = fastify;
+  const { prisma, redis, schema } = fastify;
   
-  fastify.post<PostRoute>("/", async function(req, res) {
+  fastify.post<PostRoute>("/", { schema: schema.PostProduct }, async function(req, res) {
     const { name, price } = req.body;
 
     await prisma.product.create({

@@ -12,8 +12,20 @@ const PostEmployee:FastifySchema = {
   }
 }
 
+const PostProduct:FastifySchema = {
+  body: {
+    type: "object",
+    properties: {
+      name: { type: "string" },
+      price: { type: "number" }
+    },
+    required: [ "name", "price" ]
+  }
+}
+
 const schemas = {
   PostEmployee,
+  PostProduct
 }
 
 export default fastifyPlugin(function(fastify){

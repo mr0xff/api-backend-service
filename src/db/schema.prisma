@@ -1,15 +1,15 @@
-datasource db {
-  provider = "postgresql"
-  url = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
 model Product {
-  id Int @id @default(autoincrement())
-  name  String  @unique
+  id        Int     @id @default(autoincrement())
+  name      String  @unique
   unitPrice Float
-  bio String?
+  bio       String?
 }

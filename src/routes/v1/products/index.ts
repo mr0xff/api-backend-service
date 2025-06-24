@@ -7,6 +7,15 @@ interface PostRoute extends RouteGenericInterface {
   }
 }
 
+interface PostLoteRoute extends RouteGenericInterface {
+  Body: {
+    lote: string;
+  },
+  Params: {
+    id: number;
+  }
+}
+
 export default function products(fastify: FastifyInstance){
   const { prisma, redis, schema } = fastify;
   
@@ -37,5 +46,19 @@ export default function products(fastify: FastifyInstance){
       quantity: data.length,
       when: Date.now()
     });
+  });
+
+  fastify.post<PostLoteRoute>("/:id/lote",{ schema: schema.PostProductLote },async function(req, res){
+    const { lote } = req.body;
+    const { id } = req.params;
+
+    await prisma.productLote.create({
+      data: {
+        lote,
+        productLoteId: id
+      }
+    });
+    
+    res.code(201).send({ msg: "lote foi registrado" });
   });
 }

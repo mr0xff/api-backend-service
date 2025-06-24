@@ -23,9 +23,26 @@ const PostProduct:FastifySchema = {
   }
 }
 
+const PostProductLote:FastifySchema = {
+  body: {
+    type: "object",
+    properties: {
+      lote: { type: "string" }
+    },
+    required: [ "lote" ]
+  },
+  params: {
+    type: "object",
+    properties: {
+      id: { type: "number" }
+    }
+  }
+}
+
 const schemas = {
   PostEmployee,
-  PostProduct
+  PostProduct,
+  PostProductLote
 }
 
 export default fastifyPlugin(function(fastify){

@@ -4,12 +4,20 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("INTERNAL_DATABASE_URL")
 }
 
 model Product {
-  id        Int     @id @default(autoincrement())
-  name      String  @unique
-  unitPrice Float
-  bio       String?
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  unitPrice   Float
+  bio         String?
+  ProductLote ProductLote[]
+}
+
+model ProductLote {
+  id            Int     @id @default(autoincrement())
+  product       Product @relation(fields: [productLoteId], references: [id])
+  productLoteId Int
+  lote          String  @unique
 }

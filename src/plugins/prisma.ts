@@ -9,6 +9,6 @@ export default fp(function(fastify){
 
 declare module "fastify" {
   export interface FastifyInstance {
-    prisma: InstanceType<typeof PrismaClient>;
+    prisma: typeof prisma;
   }
 }

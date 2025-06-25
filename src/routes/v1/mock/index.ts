@@ -15,5 +15,5 @@ export default async function moke(fastify: FastifyInstance){
     const { qty } = req.body as { qty: number };
     
     res.send(Array(qty).fill(null).map((p, index)=>index));
-  })
+  });
 }

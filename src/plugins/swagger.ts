@@ -13,15 +13,15 @@ export default fastifyPlugin(function(fastify){
       },
       servers: [
         {
+          url: 'https://backend-service-tranning-production.up.railway.app',
+          description: 'Development server on Railway'
+        },
+        {
           url: 'https://backend-service-tranning.onrender.com',
           description: 'Development server'
         },
         {
-          url: 'https://backend-service-tranning-production.up.railway.app',
-          description: 'Local server'
-        },
-        {
-          url: 'http://127.0.0.1:3000',
+          url: 'http://localhost:3000',
           description: 'Local server'
         }
       ],

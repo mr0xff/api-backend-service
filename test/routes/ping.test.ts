@@ -6,7 +6,7 @@ test('ping route', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
-    url: '/ping'
+    url: '/v1/ping'
   })
   assert.deepStrictEqual(JSON.parse(res.payload), { icmp: "pong" })
 });

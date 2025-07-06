@@ -13,12 +13,8 @@ export default fastifyPlugin(function(fastify){
       },
       servers: [
         {
-          url: 'https://backend-service-tranning-production.up.railway.app',
+          url: 'https://api-service-uabn.onrender.com',
           description: 'Development server on Railway'
-        },
-        {
-          url: 'https://backend-service-tranning.onrender.com',
-          description: 'Development server'
         },
         {
           url: 'http://localhost:3000',

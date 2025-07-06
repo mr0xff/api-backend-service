@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "restful-api-stock",
+  "name": "api-service",
   "version": "1.0.0",
   "description": "This project was bootstrapped with Fastify-CLI.",
   "main": "app.ts",
@@ -17,15 +17,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mr0xff/restful-api-stock.git"
+    "url": "git+https://github.com/mr0xff/api-service.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mr0xff/restful-api-stock/issues"
+    "url": "https://github.com/mr0xff/api-service/issues"
   },
-  "homepage": "https://github.com/mr0xff/restful-api-stock#readme",
+  "homepage": "https://github.com/mr0xff/api-service#readme",
   "dependencies": {
     "@fastify/autoload": "^6.0.0",
     "@fastify/rate-limit": "^10.3.0",

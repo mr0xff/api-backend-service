@@ -17,8 +17,8 @@ export default fastifyPlugin(function(fastify){
           description: 'Development server on Railway'
         },
         {
-          url: 'http://localhost:3000',
-          description: 'Local server'
+          url: 'http://127.0.0.1:3000',
+          description: 'Local env'
         }
       ],
       tags: [

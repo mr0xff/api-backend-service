@@ -1,34 +1,28 @@
 import fp from "fastify-plugin";
 import fastifyEnv from "@fastify/env";
 
-export default fp(function(f){
-  const schema = {
-    type: "object",
-    properties: {
-      AUTH_METHOD: {
-        type: "string",
-        default: "sshd"
+export default fp(function(fastify){
+  fastify.register(fastifyEnv, {
+    schema: {
+      type: "object",
+      properties: {
+        PROXY_ADDRESS: { type: "string" }
       },
-      SHELL: { type: "string", enum: ["/bin/bash", "/bin/zsh"] },
-      API_KEY : {
-        type: "string",
-        enum: ["hello", "world"]
-      }
+      required: ["PROXY_ADDRESS"]
     },
-    required: ["API_KEY"]
-  }
-
-  f.register(fastifyEnv, {
-    schema,
-    dotenv: true,
+    dotenv: {
+      debug: true
+    },
     confKey: "config"
   });
-})
+}, {
+  name: "env"
+});
 
 declare module "fastify" {
   interface FastifyInstance {
     config: {
-      SHELL: "/bin/bash" | "/bin/zsh"
+      PROXY_ADDRESS: string
     }
   }
 }

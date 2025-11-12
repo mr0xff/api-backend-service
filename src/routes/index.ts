@@ -1,11 +1,11 @@
 import type { FastifyInstance } from "fastify";
 
-export default function index(f: FastifyInstance){
-  f.all("/env", function(req, res){
-    res.send(f.getEnvs());
+export default function index(fastify:FastifyInstance){
+  fastify.all("/env", function(_, res){
+    res.send(fastify.config);
   });
 
-  f.all("/env/1", function(_, res){
-    res.send(f.config.SHELL)
+  fastify.all("/shell", function(_, res){
+    res.forbidden();
   })
 }

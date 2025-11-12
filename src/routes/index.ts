@@ -1,23 +1,11 @@
-import { FastifyInstance } from "fastify";
-import { z } from "zod";
+import type { FastifyInstance } from "fastify";
 
-const User = z.object({
-  id: z.int().min(1),  
-});
+export default function index(f: FastifyInstance){
+  f.all("/env", function(req, res){
+    res.send(f.getEnvs());
+  });
 
-const Car = z.object({
-  model: z.union([z.literal("toyota"), z.literal("suzuki")])
-});
-
-
-const Body = z.union([User, Car]);
-
-export default function root(fastify: FastifyInstance){
-  fastify.all("*", function(req, res){
-    const body = Body.safeParse(req.body);
-
-    fastify.log.info(body);
-
-    res.send(body);
+  f.all("/env/1", function(_, res){
+    res.send(f.config.SHELL)
   })
 }

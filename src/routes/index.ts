@@ -1,35 +1,14 @@
-import type { FastifyInstance, RouteGenericInterface } from "fastify";
-
-interface Get extends RouteGenericInterface {
-  Querystring: {
-    i: string;
-  }
-}
+import type { FastifyInstance } from "fastify";
 
 export default function index(fastify:FastifyInstance){
-  fastify.all("/env", function(_, res){
-    res.send(fastify.config);
+  fastify.all("/", function(req, res){
+
+    res.send(JSON.stringify({ message: "hello"}))
   });
 
-  fastify.all("/shell", function(_, res){
-    res.forbidden();
-  });
 
-  fastify.all("/int", function(req, res){
-    res.send({
-      value: 10_000_000,
-    });
-  });
-
-  fastify.all<Get>("/cookies", function(_, res){
-    const i = _.query.i ?? null
+  fastify.all("sql", function(req, res){
+    //const data = new fastify.sqlite.DatabaseSync(":memory:");
     
-    if(!i) 
-      throw fastify.httpErrors.badRequest("need querystring value");
-
-    res
-      .setCookie("_key", "custom value")
-      .code(201)
-      .send({ message: "created" });
   })
 }

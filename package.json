@@ -28,6 +28,7 @@
   "homepage": "https://github.com/mr0xff/api-service#readme",
   "dependencies": {
     "@fastify/autoload": "^6.0.0",
+    "@fastify/cookie": "^11.0.2",
     "@fastify/env": "^5.0.3",
     "@fastify/http-proxy": "^11.3.0",
     "@fastify/rate-limit": "^10.3.0",

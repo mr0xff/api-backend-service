@@ -7,8 +7,8 @@ export default function index(fastify:FastifyInstance){
   });
 
 
-  fastify.all("sql", function(req, res){
-    //const data = new fastify.sqlite.DatabaseSync(":memory:");
-    
+  fastify.all("/sql", function(req, res){
+    const db = new fastify.sqlite.DatabaseSync(":memory:");
+    res.send();
   })
 }

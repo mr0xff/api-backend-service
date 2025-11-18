@@ -3,7 +3,8 @@ import fastifyPostgres from "@fastify/postgres";
 
 export default fp(function(fastify){
   fastify.register(fastifyPostgres, {
-    connectionString: fastify.config.PSQL_URL
+    connectionString: fastify.config.PSQL_URL,
+    max: 100
   });
 }, {
   dependencies: ["env"]

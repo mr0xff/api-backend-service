@@ -4,6 +4,9 @@ import type { FastifyInstance, RouteGenericInterface } from "fastify";
 interface SqlRoute extends RouteGenericInterface {
   Querystring: {
     id: number;
+  },
+  Params: {
+    id: number;
   }
 }
 export default async function index(fastify:FastifyInstance){
@@ -23,14 +26,20 @@ export default async function index(fastify:FastifyInstance){
     })
   });
 
-  fastify.all<SqlRoute>("/sql", async function(req, res){
+  fastify.all<SqlRoute>("/sql_query", async function(req, res){
 
     const { id } = req.query;
-    
-    fastify.log.warn(id);
 
-    const { rows } = await db.query(`SELECT name FROM users_tb WHERE id=${id}`);
+    const { rows } = await db.query("SELECT name FROM users_tb where id=$1", [id]);
 
     res.send(rows.at(0));
   });
+
+  fastify.all<SqlRoute>("/sql_params/:id", async function(req, res){
+    const { id } = req.params;
+
+    const { rows } = await db.query("SELECT name FROM users_tb where id=$1", [id]);
+
+    res.send(rows.at(0));
+  })
 }

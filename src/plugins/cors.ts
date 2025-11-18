@@ -3,6 +3,6 @@ import fastifyCors from "@fastify/cors";
 
 export default fp(function(fastify){
   fastify.register(fastifyCors, {
-    origin: "*"
+    origin: ["GET", "POST"]
   })
 })

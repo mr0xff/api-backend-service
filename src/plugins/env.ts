@@ -3,17 +3,14 @@ import fastifyEnv from "@fastify/env";
 
 export default fp(function(fastify){
   fastify.register(fastifyEnv, {
+    confKey: "config",
     schema: {
       type: "object",
       properties: {
-        PROXY_ADDRESS: { type: "string" }
+        PSQL_URL: { type: "string" }
       },
-      required: ["PROXY_ADDRESS"]
-    },
-    dotenv: {
-      debug: true
-    },
-    confKey: "config"
+      required: ["PSQL_URL"]
+    }
   });
 }, {
   name: "env"
@@ -22,7 +19,7 @@ export default fp(function(fastify){
 declare module "fastify" {
   interface FastifyInstance {
     config: {
-      PROXY_ADDRESS: string
+      PSQL_URL: string
     }
   }
 }

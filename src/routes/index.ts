@@ -3,11 +3,10 @@ import type { FastifyInstance, RouteGenericInterface } from "fastify";
 
 interface SqlRoute extends RouteGenericInterface {
   Querystring: {
-    i: number;
+    id: number;
   }
 }
 export default async function index(fastify:FastifyInstance){
-  const db = await fastify.pg.connect();
 
   fastify.all("/event_timer", function(_, res){
     const timing = (new Date).toISOString().split("T")[1].split(/[:\.]/gi).splice(0, 3) as [ string, string, string ];
@@ -24,14 +23,17 @@ export default async function index(fastify:FastifyInstance){
   });
 
   fastify.all<SqlRoute>("/sql", async function(req, res){
-    const { i: index } = req.query;
+    const db = await fastify.pg.connect();
+
+    const { id } = req.query;
     
-    fastify.log.warn(index);
+    fastify.log.warn(id);
 
     const { rows } = await db.query(
-      "SELECT name FROM users_tb WHERE id=$1", [index]
+      "SELECT name FROM users_tb WHERE id=$1", [id]
     );
     
+    db.release()
     res.send(rows.at(0));
   });
 }

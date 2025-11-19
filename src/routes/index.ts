@@ -27,7 +27,8 @@ export default async function index(fastify:FastifyInstance){
   });
 
   fastify.all<SqlRoute>("/sql_query", async function(req, res){
-
+    debugger;
+    
     const { id } = req.query;
 
     const { rows } = await db.query("SELECT name FROM users_tb where id=$1", [id]);

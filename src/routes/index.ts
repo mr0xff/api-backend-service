@@ -1,22 +1,19 @@
 import type { FastifyInstance } from "fastify";
 
-// type Payload = {
-//   user_id: number;
-//   data: string;
-// }
-
 export default function index(fastify:FastifyInstance){
-  // const clients = new Set();
 
-  fastify.get("/chat", { websocket: true }, function(socket, req){
-    // socket.on("connect", (data: Buffer) => {
-    //   console.log(data);
-    // });
+  fastify.get("/webhook", { websocket: true }, function(sock, req){
+    sock.on("message", msg => {
 
-    socket.on("message", function(){
-      socket.send("hi");
+      fastify.websocketServer.emit("test", msg.toString());
+
+      console.log(msg.toString());
     });
-
   });
 
+  fastify.get("/chat", { websocket: true }, function(sock, req){
+    fastify.websocketServer.addListener("test", (data)=>{
+      sock.send(data);
+    })
+  })
 }

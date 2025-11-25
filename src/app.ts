@@ -2,6 +2,7 @@ import * as path from 'node:path';
 import AutoLoad, {AutoloadPluginOptions} from '@fastify/autoload';
 import { FastifyPluginAsync } from 'fastify';
 import { fileURLToPath } from 'node:url'
+import { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -38,7 +39,10 @@ const app: FastifyPluginAsync<AppOptions> = async (
     dir: path.join(__dirname, 'routes'),
     options: opts,
     forceESM: true
-  })
+  });
+
+
+  fastify.withTypeProvider<JsonSchemaToTsProvider>();
 
 };
 

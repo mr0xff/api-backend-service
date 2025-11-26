@@ -9,7 +9,26 @@ export interface SupportPluginOptions {
 export default fp<SupportPluginOptions>(async (fastify, opts) => {
   fastify.decorate('someSupport', function () {
     return 'hugs'
-  })
+  });
+
+  fastify.addSchema({
+    $id: "http://example.com/",
+    type: "object",
+    properties: {
+      hello: { type: "string" }
+    },
+    required: ["hello"]
+  });
+
+  fastify.addSchema({
+    $id: "commonSchema",
+    type: "object",
+    properties: {
+      hello: { type: "string" }
+    },
+    required: ["hello"]
+  });
+
 })
 
 // When using .decorate you have to specify added properties for Typescript

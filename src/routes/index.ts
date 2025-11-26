@@ -1,39 +1,30 @@
-import type { FastifyInstance } from "fastify";
+import { FastifyInstance } from "fastify";
 
-export default function index(fastify:FastifyInstance){
+export default function root(fastify: FastifyInstance){
+  fastify.addHook("preHandler", (_, __, done)=>{
+    const schemas = fastify.getSchemas();
 
-  fastify.get("/webhook", { websocket: true }, function(sock, req){
-    sock.on("message", msg => {
+    console.log(schemas);
 
-      fastify.websocketServer.emit("test", msg.toString());
-
-      console.log(msg.toString());
-    });
+    done();
   });
 
-  fastify.get("/chat", { websocket: true }, function(sock, req){
-    fastify.websocketServer.addListener("test", (data)=>{
+  fastify.patch("/", { schema: { body: { $ref: "commonSchema"}}}, (req, res)=>{
+    const body = req.body;
+    fastify.log.warn(body);
 
-      sock.send(data);
-    
-    });
+    res.send();
   });
 
-  fastify.all("/someroute", (req, res)=>{
-    res.send({ msg: "I'm service 01" });
-  });
-  
+  fastify.post("/", {
+    schema: {
+      body: {
+        $ref: "commonSchema"
+      }
+    }
+  }, (req, res)=>{
+    fastify.log.warn(req.body);
 
-  fastify.get("/list_notes", async function(req, res){
-    const client = await fastify.pg.connect();
-
-    const { rows } = await client.query("select * from notes_tb");
-    
-    client.release();
-    res.send(rows);
-  });
-
-  fastify.post("/add_note", async function(req, res){
-
-  });
+    res.send(fastify.getSchemas());
+  })
 }

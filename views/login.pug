@@ -1,0 +1,10 @@
+extends layout.pug 
+
+block content
+  div(class="h-screen flex flex-col justify-center items-center")
+    h2(class="mb-8 text-xl font-bold") Login page 
+
+    form(action="/html" method="post" class="flex flex-col gap-y-8")
+      input(type="email" placeholder="examplo@evil.com" required name="email" class="ring ring-1 ring-gray-200 px-2 py-2")
+      input(type="password" placeholder="sua senha" required name="pwd" class="ring ring-1 ring-gray-200 px-2 py-2")
+      button(type="submit" class="bg-blue-500 text-white px-3 py-2") Entrar

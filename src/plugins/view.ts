@@ -6,6 +6,6 @@ export default fp((fastify)=>{
     engine: {
       pug: import("pug")
     },
-    root: "src/views"
+    root: "views"
   })
 });

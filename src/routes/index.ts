@@ -1,39 +1,32 @@
 import type { FastifyInstance } from "fastify";
+import { readFile } from "fs/promises";
 
-export default function index(fastify:FastifyInstance){
+export default async function index(fastify: FastifyInstance){
+  fastify.log.warn("inicialização da rota ... ");
 
-  fastify.get("/webhook", { websocket: true }, function(sock, req){
-    sock.on("message", msg => {
+  const buf = await readFile("cid10.json");
 
-      fastify.websocketServer.emit("test", msg.toString());
+  const ascii = JSON.parse(buf.toString()) as Array<{ code: string; value: string }>;
 
-      console.log(msg.toString());
-    });
-  });
+  const codes = new Map();
 
-  fastify.get("/chat", { websocket: true }, function(sock, req){
-    fastify.websocketServer.addListener("test", (data)=>{
-
-      sock.send(data);
-    
-    });
-  });
-
-  fastify.all("/someroute", (req, res)=>{
-    res.send({ msg: "I'm service 01" });
-  });
+  ascii.forEach(e => codes.set(e.code, e));
   
+  fastify.get("/:name", (req, res)=>{
 
-  fastify.get("/list_notes", async function(req, res){
-    const client = await fastify.pg.connect();
+    const { name } = req.params;
 
-    const { rows } = await client.query("select * from notes_tb");
+    const r = ascii.filter (e => {
+      return (new RegExp(name, "ig"))
+        .test(e.value)
+    });
     
-    client.release();
-    res.send(rows);
-  });
+    if(r.length > 20)
+      throw fastify.httpErrors.badRequest("A referencia de busca é curta demais!");
 
-  fastify.post("/add_note", async function(req, res){
+    if(!r.length)
+      throw fastify.httpErrors.notFound("Referencia não encontrada!");
 
-  });
+    res.send(r);
+  })  
 }

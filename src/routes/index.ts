@@ -12,12 +12,17 @@ export default async function index(fastify: FastifyInstance){
 
   ascii.forEach(e => codes.set(e.code, e));
   
-  fastify.get("/:name", (req, res)=>{
+  fastify.get<{Params: { ref: string }}>("/:ref", (req, res)=>{
 
-    const { name } = req.params;
+    const { ref } = req.params;
+
+    if(codes.has(ref.toUpperCase())){
+      res.send(codes.get(ref.toUpperCase()));
+      return;
+    }
 
     const r = ascii.filter (e => {
-      return (new RegExp(name, "ig"))
+      return (new RegExp(ref, "ig"))
         .test(e.value)
     });
     
@@ -28,5 +33,5 @@ export default async function index(fastify: FastifyInstance){
       throw fastify.httpErrors.notFound("Referencia não encontrada!");
 
     res.send(r);
-  })  
+  });
 }

@@ -7,9 +7,9 @@ export default fp(function(fastify){
     schema: {
       type: "object",
       properties: {
-        PSQL_URL: { type: "string" }
+        SECRET: { type: "string" }
       },
-      required: ["PSQL_URL"]
+      required: ["SECRET"]
     }
   });
 }, {
@@ -19,7 +19,7 @@ export default fp(function(fastify){
 declare module "fastify" {
   interface FastifyInstance {
     config: {
-      PSQL_URL: string
+      SECRET: string
     }
   }
 }

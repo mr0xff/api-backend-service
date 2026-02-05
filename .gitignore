@@ -2,6 +2,7 @@
 logs
 *.log
 npm-debug.log*
+.env
 
 google-client.json
 # Runtime data
@@ -64,3 +65,5 @@ test/types/index.js
 
 # compiled app
 dist
+
+/src/generated/prisma

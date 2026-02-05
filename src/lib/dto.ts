@@ -35,7 +35,6 @@ export class Post {
   title: string;
   content: Optional<string>;
   published: boolean;
-  author: User;
   authorId: number;
 
   constructor(
@@ -43,10 +42,8 @@ export class Post {
     title: string,
     content: Optional<string> = null,
     published: boolean,
-    author: User,
     authorId: number
   ) {
-    this.author = author;
     this.authorId = authorId;
     this.content = content;
     this.id = id;

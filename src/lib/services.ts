@@ -1,6 +1,13 @@
-import { User } from "./dto.js";
+import { User, Post } from "./dto.js";
 
 import { DIPrisma } from "./prisma.js";
+
+class Service {
+  protected prisma: DIPrisma;
+  constructor(prisma: DIPrisma){
+    this.prisma = prisma;
+  }
+}
 
 export class UserService { 
   #repo: DIPrisma;
@@ -31,5 +38,13 @@ export class UserService {
     });
 
     return { id: result.id }
+  }
+}
+
+export class PostService extends Service {
+  async list(){
+    const posts = await this.prisma.post.findMany()
+
+    return posts.map(post => new Post(post.id, post.title, post.content, post.published, post.authorId))
   }
 }

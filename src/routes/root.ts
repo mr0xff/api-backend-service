@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifySchema, RouteGenericInterface } from "fastify";
-import { Task } from "../lib/dto.js";
+import { TaskDTO } from "../lib/dto.js";
 
 interface TaskPost extends RouteGenericInterface {
   Body: {
@@ -41,7 +41,7 @@ export default function root(fastify: FastifyInstance) {
   });
 
   fastify.post<TaskPost>("/tasks", { schema: { body: { $ref: "taskPost" }} } ,(req, res) => {
-    const task = new Task(req.body.title, req.body.completed);
+    const task = new TaskDTO(req.body.title, req.body.completed);
     fastify.log.warn(task);
     console.log(task);
     res.code(201).send();

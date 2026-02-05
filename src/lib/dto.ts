@@ -1,4 +1,4 @@
-export class Task {
+export class TaskDTO {
   title: string;
   completed: boolean;
 
@@ -11,5 +11,46 @@ export class Task {
   #validate(){
     if(typeof this.title !== "string" || typeof this.completed !== "boolean")
       throw new TypeError("invalid type!");
+  }
+}
+
+type Optional<T> = T | null;
+
+export class User {
+  id: Optional<number>;
+  name: string;
+  email: string;
+  posts: Post[];
+
+  constructor(id: Optional<number> = null, name: string, email: string, posts: Post[]){
+    this.id = id;
+    this.email = email;
+    this.name = name;
+    this.posts = posts;
+  }
+}
+
+export class Post {
+  id: Optional<number> ;
+  title: string;
+  content: Optional<string>;
+  published: boolean;
+  author: User;
+  authorId: number;
+
+  constructor(
+    id: Optional<number> = null,
+    title: string,
+    content: Optional<string> = null,
+    published: boolean,
+    author: User,
+    authorId: number
+  ) {
+    this.author = author;
+    this.authorId = authorId;
+    this.content = content;
+    this.id = id;
+    this.published = published;
+    this.title = title;
   }
 }

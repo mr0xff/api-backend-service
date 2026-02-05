@@ -11,7 +11,7 @@ export class UserService {
 
   async list(){
     const user = await this.#repo.user.findMany();
-    return user;
+    return user.map(user => new User(user.id, user.name, user.email, []));
   }
 
   async create(user: User){

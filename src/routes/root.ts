@@ -9,11 +9,12 @@ interface TaskPost extends RouteGenericInterface {
 }
 
 export default function root(fastify: FastifyInstance) {
+  const { JsonResponse } = fastify.dto;
   fastify.addSchema({
     $id: "taskPost",
     type: "object",
     properties: {
-      title: { type: "integer" },
+      title: { type: "string" },
       completed: { type: "boolean" }
     }
   });
@@ -35,15 +36,14 @@ export default function root(fastify: FastifyInstance) {
     res.send({ msg: "yes" });
   });
 
-  fastify.addHook("onClose", (req, done) => {
-    fastify.log.warn("request canceled by user");
-    done();
-  });
-
   fastify.post<TaskPost>("/tasks", { schema: { body: { $ref: "taskPost" }} } ,(req, res) => {
     const task = new TaskDTO(req.body.title, req.body.completed);
-    fastify.log.warn(task);
-    console.log(task);
-    res.code(201).send();
+
+    res.code(201).send(new JsonResponse({
+      data: task,
+      message: "created!",
+      status: true
+    }));
   });
+
 }

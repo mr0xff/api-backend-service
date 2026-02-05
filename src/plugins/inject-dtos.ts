@@ -1,8 +1,9 @@
 import fp from "fastify-plugin";
-import { User } from "../lib/dto.js";
+import { User, JsonResponse } from "../lib/dto.js";
 
 const dto = {
-  user: User
+  User,
+  JsonResponse
 }
 
 export default fp(function(fastify){

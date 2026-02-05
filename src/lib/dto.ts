@@ -54,3 +54,24 @@ export class Post {
     this.title = title;
   }
 }
+
+export class JsonResponse<T>{
+  data: Optional<T>;
+  status: boolean;
+  message: Optional<string>;
+  __v = "1"
+
+  constructor({
+    data,
+    status,
+    message
+  }: { 
+    data: Optional<T>;
+    status: boolean;
+    message: Optional<string>;
+  }) {
+    this.data = data;
+    this.message = message;
+    this.status = status;
+  }
+}

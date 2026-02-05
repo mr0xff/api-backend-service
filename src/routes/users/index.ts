@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifySchema, RouteGenericInterface } from "fastify";
+import { FastifyInstance, RouteGenericInterface } from "fastify";
 
 interface PostRoute extends RouteGenericInterface {
   Body: {
@@ -8,21 +8,25 @@ interface PostRoute extends RouteGenericInterface {
 }
 
 export default function index(fastify: FastifyInstance) {
-  // fastify.addSchema({
-  //   $id: "dataResponse",
-  //   type: "object",
-  //   properties: {
-  //     data: { type: "" }
-  //   }
-  // });
-  const { user: userServices } = fastify.service;
+  const { user: userService } = fastify.service;
+  const { User: UserDTO } = fastify.dto;
 
   fastify.get("/", async function(req, res){
-    const users = await userServices.list();
+    const users = await userService.list();
     res.send({ data: users });
   });
 
   fastify.post<PostRoute>("/", async function (req, res) {
-    const user = 
+    const user = new UserDTO(
+      null,
+      req.body.name,
+      req.body.email,
+      []
+    );
+    
+    console.log(user);
+
+    const data = await userService.create(user);
+    res.code(201).send({ data });
   })
 }

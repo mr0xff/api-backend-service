@@ -7,14 +7,7 @@ export default function root(_fastify: FastifyInstance) {
   fastify.post(
     "/",
     { schema: {
-      body: {
-        type: "object",
-        properties: {
-          name: { type: "string" },
-          age: { type: "integer", minLength: 0 }
-        },
-        required: ["name", "age"]
-      }
+      body: { $ref: "userPost" }
     }},
     (req, res) => {
       const { name, age } = req.body;

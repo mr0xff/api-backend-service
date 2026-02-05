@@ -2,6 +2,7 @@ import * as path from 'node:path'
 import AutoLoad, { AutoloadPluginOptions } from '@fastify/autoload'
 import { FastifyPluginAsync } from 'fastify'
 import { fileURLToPath } from 'node:url'
+import { JsonSchemaToTsProvider } from "@fastify/type-provider-json-schema-to-ts";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -15,11 +16,12 @@ const options: AppOptions = {
 }
 
 const app: FastifyPluginAsync<AppOptions> = async (
-  fastify,
+  _fastify,
   opts
 ): Promise<void> => {
   // Place here your custom code!
-  
+  const fastify = _fastify.withTypeProvider<JsonSchemaToTsProvider>();
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins

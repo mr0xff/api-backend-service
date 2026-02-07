@@ -1,20 +1,16 @@
 import fp from "fastify-plugin";
-import { User, JsonResponse, Post } from "../lib/dto.js";
 
-const dto = {
-  User,
-  JsonResponse,
-  Post
-}
+const service = {}
+const dto = {}
 
-export default fp(function(fastify){
+export default fp(fastify => {
+  fastify.decorate("service", service);
   fastify.decorate("dto", dto);
-}, {
-  name: "dto"
 });
 
 declare module "fastify" {
   export interface FastifyInstance {
+    service: typeof service;
     dto: typeof dto;
   }
 }

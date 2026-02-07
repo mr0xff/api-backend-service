@@ -1,4 +1,4 @@
-import PostService from "./PostServices.js";
+import PostService from "./PostServices";
 
 export  {
   PostService

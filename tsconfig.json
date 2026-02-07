@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "sourceMap": true,
-    "module": "NodeNext",
+    "module": "esnext",
     "moduleResolution": "bundler",
   },
   "include": ["src/**/*.ts"]

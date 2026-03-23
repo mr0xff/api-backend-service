@@ -18,6 +18,8 @@ model User {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   messages Message[]
+  created_at  DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
 
 model Message {
@@ -26,5 +28,6 @@ model Message {
   sender_id   String @db.ObjectId
   receiver_id String @db.ObjectId
   sender      User   @relation(fields: [sender_id], references: [id])
+  created_at  DateTime @default(now())
   // receiver User @relation(fields: [receiver_id], references: [id])
 }

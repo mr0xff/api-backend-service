@@ -1,23 +1,22 @@
-# Getting Started with [Fastify-CLI](https://www.npmjs.com/package/fastify-cli)
-This project was bootstrapped with Fastify-CLI.
+# Backend Service for personal use
 
-## Available Scripts
+Practice backend service
 
-In the project directory, you can run:
+Run this command on primary mongo server instance to enable replica set configuration: 
+```js
+rs.initiate( {
+   _id : "rs0",
+   members: [
+      { _id: 0, host: "mongodb0.example.net:27017" },
+      { _id: 1, host: "mongodb1.example.net:27017" },
+      { _id: 2, host: "mongodb2.example.net:27017" }
+   ]
+})
+```
 
-### `npm run dev`
+For more details see [Deploy a Replica Set](https://www.mongodb.com/docs/manual/tutorial/deploy-replica-set/)
 
-To start the app in dev mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `npm start`
-
-For production mode
-
-### `npm run test`
-
-Run the test cases.
-
-## Learn More
-
-To learn Fastify, check out the [Fastify documentation](https://fastify.dev/docs/latest/).
+Pay attention on `DATABASE_URL` string connection to contain all server address: 
+```sh
+DATABASE_URL="mongodb://localhost:27017,localhost:27018,localhost:27019/mydb?replicaSet=rs0"
+```

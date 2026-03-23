@@ -30,8 +30,19 @@ export default class MessagingService {
   async read(user_id: string){
     const data = await this.#db.message.findMany({
       where: { sender_id: user_id },
-      include: {
-        sender: true
+      // include: {
+      //   sender: true,
+      //   receiver: true
+      // }
+      select: {
+        id: true,
+        body: true,
+        receiver: {
+          select: { name: true }
+        },
+        sender: {
+          select: { name: true }
+        }
       }
     });
 

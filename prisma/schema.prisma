@@ -13,3 +13,18 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  messages Message[]
+}
+
+model Message {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  body        String
+  sender_id   String @db.ObjectId
+  receiver_id String @db.ObjectId
+  sender      User   @relation(fields: [sender_id], references: [id])
+  // receiver User @relation(fields: [receiver_id], references: [id])
+}

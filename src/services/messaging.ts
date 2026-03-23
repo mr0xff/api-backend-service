@@ -37,6 +37,7 @@ export default class MessagingService {
       select: {
         id: true,
         body: true,
+        created_at: true,
         receiver: {
           select: { name: true }
         },

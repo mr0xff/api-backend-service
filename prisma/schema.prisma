@@ -15,11 +15,12 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String    @unique
-  messages   Message[]
-  created_at DateTime  @default(now())
-  updated_at DateTime  @default(now()) @updatedAt
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String    @unique
+  send_messages Message[] @relation("sender")
+  recv_messages Message[] @relation("receiver")
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now()) @updatedAt
 }
 
 model Message {
@@ -27,7 +28,7 @@ model Message {
   body        String
   sender_id   String   @db.ObjectId
   receiver_id String   @db.ObjectId
-  sender      User     @relation(fields: [sender_id], references: [id])
+  sender      User     @relation("sender", fields: [sender_id], references: [id])
   created_at  DateTime @default(now())
-  // receiver User @relation(fields: [receiver_id], references: [id])
+  receiver    User     @relation("receiver", fields: [receiver_id], references: [id])
 }

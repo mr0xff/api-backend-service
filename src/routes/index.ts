@@ -20,10 +20,14 @@ export default function index(fastify: FastifyInstance){
     sender_id: string;
     receiver_id: string;
     body: string;
-  }}>("/api/chat/", async function(req, res){
+  }}>("/api/chat", async function(req, res){
     const data = await service.messaging.write(req.body);
     res.code(201).send({ data });
   });
   
+
+  fastify.get("/api/chat", async function(req, res){
+    
+  })
   // ... chat api
 }

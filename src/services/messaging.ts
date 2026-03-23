@@ -37,4 +37,12 @@ export default class MessagingService {
 
     return data;
   }
+
+  async readChat(){
+    return await this.#db.message.findMany({
+      select: {
+        id: true,
+      }
+    })
+  }
 }
